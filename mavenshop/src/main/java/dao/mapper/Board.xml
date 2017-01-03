@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.mapper.BoardMapper">
+	<select id="getBoard" resultType="Board" parameterType="map">
+		select * from (select rownum rnum,num,id,pass,subject,content,ref,reflevel,refstep,readcnt,regdate,file1 fileUrl
+		from
+		(select * from board order by ref desc,refstep))
+		where rnum >= #{start} and rnum &lt;=#{end}
+	</select>
+	<select id="seojw" resultType="Board" parameterType="map">
+	select * from (select rownum rnum,num,id,pass,subject,content,ref,reflevel,refstep,readcnt,regdate,file1 fileUrl
+		from
+		(select * from board where ${searchtype} like '%${searchContent}%' order by ref desc,refstep))
+		where rnum >= #{start} and rnum &lt;=#{end}
+	</select>
+</mapper>

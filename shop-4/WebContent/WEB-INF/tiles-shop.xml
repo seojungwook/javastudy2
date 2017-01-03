@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation// DTD Tiles Configuration 2.1 //EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+   <definition name="main" template="/WEB-INF/jsp/module/layout.jsp">
+      <put-attribute name="header" value="/WEB-INF/jsp/module/topheader.jsp" />
+      <put-attribute name="body" value="/WEB-INF/jsp/item/list.jsp" />
+   </definition>
+   <definition name="*" template="/WEB-INF/jsp/module/{1}.jsp" />
+   <definition name="*/*" extends="main">
+      <put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}.jsp" />
+      <put-attribute name="header" value="/WEB-INF/jsp/module/topheader.jsp" />
+   </definition>
+</tiles-definitions>

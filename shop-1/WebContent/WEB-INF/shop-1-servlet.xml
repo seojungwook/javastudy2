@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	                  http://www.springframework.org/schema/beans/spring-beans.xsd
+	                  http://www.springframework.org/schema/aop
+                      http://www.springframework.org/schema/aop/spring-aop.xsd
+                      http://www.springframework.org/schema/context
+                      http://www.springframework.org/schema/context/spring-context.xsd">
+	<!-- handlerMapping : url정보와 Controller 매핑 -->
+	<bean id="handlerMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<value>
+				/index.html=indexController
+				/detail.html=detailController
+			</value>
+		</property>
+	</bean>
+<bean id="detailController" class="controller.DetailController" p:shopService-ref="shopService"></bean>
+<bean id="indexController" class="controller.IndexController" p:shopService-ref="shopService" />
+<bean id="shopService" class="logic.ShopImpl" p:itemCatalog-ref="itemCatalog" />
+<bean id="itemCatalog" class="logic.ItemCatalogImpl" p:itemDao-ref="itemDao" />
+<bean id="itemDao" class="dao.ItemDaoImpl" p:dataSource-ref="dataSource" />
+<!--ViewResolver : 뷰선택자  -->
+<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+<property name="viewClass">
+<value>
+org.springframework.web.servlet.view.JstlView
+</value>
+</property>
+<property name="prefix">
+<value>/WEB-INF/jsp/</value>
+</property>
+<property name="suffix">
+<value>.jsp</value>
+</property>
+</bean>
+</beans>

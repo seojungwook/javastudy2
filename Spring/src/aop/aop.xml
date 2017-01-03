@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop.xsd">
+	<bean id="logging" class="aop.LoggingAspect" />
+	<!-- 
+	pointcut : 핵심알고리즘 지정
+	aspect : AOP클래스 의미
+	 advice: AOP알고리즘을 실행하는 시점
+	     around : 핵심알고리즘 전후로 
+	     afterReturning : 핵심 알고리즘 정상 실행후 실행 
+	     afterThrowing : 핵심 알고리즘 오류 실행후  실행
+	     after:핵심 알고리즘 실행후
+	     before : 핵심알고리즘 실행전 
+	     
+	     execution* *..*Impl.*(..))
+	     *: 모든접근 제어자
+	     *..:모든 패키지
+	     *Impl : 클래스 이름(Impl로 끝나는 클래스 또는 인터페이스)
+	     .* : 모든 메서드 
+	     (..):모든 메개변수 
+	 -->
+	<aop:config>
+		<aop:pointcut expression="execution(* *..*Impl.*(..))"
+			id="servicepointcut" />
+		<aop:aspect id="LoggingAspect" ref="logging">
+			<aop:around method="logging" pointcut-ref="servicepointcut" />
+		</aop:aspect>
+	</aop:config>
+</beans>

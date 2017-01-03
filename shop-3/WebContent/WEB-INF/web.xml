@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>shop-3</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <!-- filter의 기능 : request , response 객체 변경  -->
+  <filter>
+  <filter-name>CharacterEncodingFilter</filter-name>
+  <filter-class>
+  org.springframework.web.filter.CharacterEncodingFilter
+  </filter-class>
+  <init-param>
+  <param-name>encoding</param-name>
+  <param-value>euc-kr</param-value>
+  </init-param>
+  <init-param>
+  <param-name>forceEncoding</param-name><!-- 강제로 인코딩 !! -->
+  <param-value>true</param-value>
+  </init-param>
+  </filter>
+  <filter-mapping>
+  <filter-name>CharacterEncodingFilter</filter-name>
+  <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <context-param>
+  <param-name>contextConfigLocation</param-name>
+  <param-value>classpath:common.xml</param-value><!--  xml 의 위치 변경  -->
+  </context-param>
+  <!--ContextLoaderListener
+  default로 applicationContext.xml을 WEB-INF 폴더에서 조회해서 컨테이너 에 
+  해당 빈(bean)을 저장
+  context-param : applicationContext.xml대신 /src/common.xml을 사용하도록 설정
+    -->
+  <!-- 서블릿의  보조 역활!! 
+    contreoller 역활의 서블릿 보조역활 applicationContext.xml 에 설정된 객채들을 
+          컨테이너에 저장
+  -->
+  <listener>
+  <listener-class>
+  org.springframework.web.context.ContextLoaderListener
+  </listener-class>
+  </listener>
+  <!-- 
+  DispatherServlet : Controller의 역활을 해준다 .
+                     *.html 형식의 url로 요청시 호출되는 Controller 
+                     /WEB-INF/shop-1-servlet.xml파일을 읽어서 컨테이너에 저장 
+   -->
+  <servlet>
+  <servlet-name>shop-3</servlet-name>
+  <servlet-class>
+  org.springframework.web.servlet.DispatcherServlet
+  </servlet-class>
+  </servlet>
+  <servlet-mapping>
+  <servlet-name>shop-3</servlet-name>
+  <url-pattern>*.html</url-pattern>
+  </servlet-mapping>
+  
+ <!-- tiles 관련 설정 
+ <servlet>
+ <servlet-name>tiles</servlet-name>
+ <servlet-class>
+ org.apache.tiles.startup.TilesServlet
+ </servlet-class>
+ <init-param>
+ <param-name>
+ org.apache.tiles.impl.BasicTilesContainer.DEFINITION_CONFIG
+ </param-name>
+ <param-value>
+ /WEB-INF/tiles-shop.xml
+ </param-value>
+ </init-param>
+ <load-on-startup>1</load-on-startup>
+ </servlet>
+ <servlet>
+ <servlet-name>TilesDispatchServlet</servlet-name>
+ <servlet-class>org.apache.tiles.web.TilesDispatchServlet</servlet-class>
+ </servlet>
+ <servlet-mapping>
+ <servlet-name>TilesDispatchServlet</servlet-name>
+ <url-pattern>*.tiles</url-pattern>
+ </servlet-mapping>-->
+</web-app>

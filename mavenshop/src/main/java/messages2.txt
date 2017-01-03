@@ -1,0 +1,5 @@
+itemMenu.title = 상품 목록 화면
+itemEdit.title = 상품 편집 화면
+itemAdd.title = 상품 추가 화면
+itemDelete.title = 상품 제거 화면
+itemDtail.titile= 상품 상세 보기

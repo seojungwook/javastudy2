@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:security=
+     "http://www.springframework.org/schema/security"
+     xmlns="http://www.springframework.org/schema/beans"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://www.springframework.org/schema/beans
+                    http://www.springframework.org/schema/beans/spring-beans.xsd 
+                    http://www.springframework.org/schema/security
+             http://www.springframework.org/schema/security/spring-security.xsd">
+     <security:http auto-config="true">
+       <security:intercept-url pattern="/item/create**" access="ROLE_ADMIN" />
+       <security:intercept-url pattern="/item/edit**" access="ROLE_ADMIN" />
+       <security:intercept-url pattern="/item/confirm**" access="ROLE_ADMIN" />
+       <security:intercept-url pattern="/item/list**" access="ROLE_USER" />
+       <security:intercept-url pattern="/item/search**" access="ROLE_ADMIN" />
+       <security:form-login login-page="/login.html" 
+       authentication-failure-url="/login.html?login_error=1"
+       default-target-url="/item/list.html"/>
+       <security:session-management>
+       <security:concurrency-control max-sessions="1"
+       error-if-maximum-exceeded="true"/>
+       </security:session-management>
+       <security:logout logout-url="/j_spring_security_Logout"
+                        logout-success-url="/logout.html"
+                        invalidate-session="true" />   
+     </security:http>
+     <!-- 
+     <security:authentication-manager>
+     <security:authentication-provider>
+      <security:user-service>
+     <security:user name="admin" password="spring" authorities="ROLE_ADMIN, ROLE_USER" />
+     <security:user name="user" password="security" authorities="ROLE_USER" />
+     </security:user-service>
+     </security:authentication-provider>
+     </security:authentication-manager>
+      -->
+      <security:authentication-manager>
+     <security:authentication-provider>
+     <security:password-encoder hash="sha-256" />
+      <security:user-service>
+     <security:user name="admin"
+      password="622a494d3ea8c7ba2fed4f37909f14d9b50ab412322de39be62c8d6c2418bfca"
+      authorities="ROLE_ADMIN, ROLE_USER" />
+     <security:user name="user" 
+      password="5d2d3ceb7abe552344276d47d36a8175b7aeb250a9bf0bf00e850cd23ecf2e43" 
+      authorities="ROLE_USER" />
+     </security:user-service>
+     </security:authentication-provider>
+     </security:authentication-manager>
+     </beans>

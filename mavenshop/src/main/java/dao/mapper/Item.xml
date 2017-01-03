@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.mapper.ItemMapper">
+	<select id="getItem" resultType="Item" parameterType="map">
+		select id itemId,name itemName,price,description,picture pictureUrl
+		from item
+		<where>
+			<if test="itemId !=null">
+				id=#{itemId}
+			</if>
+			<if test="itemName !=null">
+				name like #{itemName}
+			</if>
+		</where>
+		order by id
+	</select>
+</mapper>
